@@ -24,7 +24,7 @@ export const GlobalStyle = createGlobalStyle`
   p,
   label,span {
     line-height: 24px;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
 
   input, select, button {
