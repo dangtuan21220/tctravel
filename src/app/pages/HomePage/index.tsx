@@ -1,43 +1,21 @@
-import { Button, Modal } from 'antd';
+import Header from 'app/components/Header/Header';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import IMAGE from 'app/assets/images/ha-noi.jpg';
+import Styled from './styled';
 
 export function HomePage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
   return (
     <>
       <Helmet>
         <title>Home Page</title>
         <meta name="description" content="smt" />
       </Helmet>
-      <div>
-        <h1>Hello</h1>
-        <Button type="primary" onClick={showModal}>
-          Open Modal
-        </Button>
-        <Modal
-          title="Basic Modal"
-          visible={isModalOpen}
-          onOk={handleOk}
-          onCancel={handleCancel}
-        >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </Modal>
-      </div>
+      <Header />
+      <Styled.Container>
+        <img src={IMAGE} alt="img" />
+        <img src={IMAGE} alt="img" />
+      </Styled.Container>
     </>
   );
 }

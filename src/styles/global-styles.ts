@@ -37,5 +37,13 @@ export const GlobalStyle = createGlobalStyle`
     height: 2.4rem;
   }
 
+  body::-webkit-scrollbar {
+  width: 0rem !important;
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+}
+
 
 `;
