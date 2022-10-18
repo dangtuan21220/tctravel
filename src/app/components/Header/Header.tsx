@@ -70,11 +70,17 @@ function Header() {
             </Menu>
           </Col>
           <Col span={2} className="login logo">
-            <Button onClick={() => setIsModalLogin(true)} type="link">ĐĂNG NHẬP</Button>
+            <Button onClick={() => setIsModalLogin(true)} type="link">
+              ĐĂNG NHẬP
+            </Button>
           </Col>
         </Row>
       </Styled.Header>
-      <Login isOpen={isModalLogin} onClose={() => setIsModalLogin(false)} />
+      <Login
+        isOpen={isModalLogin}
+        onClose={() => setIsModalLogin(false)}
+        onOpenLogin={() => setIsModalLogin(true)}
+      />
     </>
   );
 }
