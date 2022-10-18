@@ -33,7 +33,7 @@ const Styled = {
           font-weight: 600;
           color: ${({ theme }) => theme.neutral_white};
           &:hover {
-            color: ${({ theme }) => theme.primary_700} !important;
+            color: ${({ theme }) => theme.secondary_500} !important;
           }
         }
       }
@@ -62,7 +62,7 @@ const Styled = {
         }
         .ant-menu-item-selected {
           a {
-            color: ${({ theme }) => theme.primary_700} !important;
+            color: ${({ theme }) => theme.secondary_500} !important;
             font-weight: 600;
           }
           &:hover {
@@ -79,7 +79,7 @@ const Styled = {
           }
         }
         .ant-menu-item-active {
-          color: ${({ theme }) => theme.primary_700} !important;
+          color: ${({ theme }) => theme.secondary_500} !important;
           border-bottom: 0;
           &:hover {
             border-bottom: 0;
@@ -89,7 +89,7 @@ const Styled = {
             border-bottom: 0;
           }
           a {
-            color: ${({ theme }) => theme.primary_700};
+            color: ${({ theme }) => theme.secondary_500};
           }
         }
         .ant-btn {
@@ -105,7 +105,7 @@ const Styled = {
             }
           }
           &:hover {
-            background-color: ${({ theme }) => theme.primary_700};
+            background-color: ${({ theme }) => theme.secondary_500};
             border: 0;
           }
         }

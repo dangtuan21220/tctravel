@@ -20,6 +20,11 @@ const Styled = {
         left: 50%;
         z-index: 100;
         transform: translateX(-50%);
+        .ant-btn {
+          font-weight: 600;
+          font-style: italic;
+          font-family: 'Courier New', Courier, monospace;
+        }
         .anticon svg {
           margin-top: -5px;
         }
