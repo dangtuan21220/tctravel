@@ -41,7 +41,7 @@ function Header() {
               TCTravel
             </Link>
           </Col>
-          <Col span={15}>
+          <Col span={13}>
             <Menu
               mode="horizontal"
               onClick={handleClick}
@@ -69,7 +69,7 @@ function Header() {
             </Menu.Item> */}
             </Menu>
           </Col>
-          <Col span={3} className="login logo">
+          <Col span={2} className="login logo">
             <Button onClick={() => setIsModalLogin(true)} type="link">ĐĂNG NHẬP</Button>
           </Col>
         </Row>

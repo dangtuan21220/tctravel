@@ -16,7 +16,7 @@ const Styled = {
       .logo {
         display: flex;
         align-self: center;
-        padding-left: 25px;
+        /* padding-left: 25px; */
         a {
           color: ${({ theme }) => theme.neutral_white};
         }
