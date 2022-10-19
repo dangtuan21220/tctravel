@@ -36,6 +36,23 @@ const Styled = {
             color: ${({ theme }) => theme.secondary_500} !important;
           }
         }
+        .user {
+          margin-left: 2rem;
+          display: flex;
+          align-items: center;
+
+          h4 {
+            color: white;
+            margin-bottom: 0;
+            margin: 1rem;
+          }
+
+          .anticon svg {
+            font-size: 3rem;
+            color: white;
+            margin-top: -10px;
+          }
+        }
       }
       .ant-menu {
         background: transparent;

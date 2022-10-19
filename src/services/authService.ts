@@ -6,7 +6,7 @@ export const authService = {
   login(data) {
     return apiClient.request({
       method: 'POST',
-      url: '/aipaccountsvc/users/auth/login',
+      url: '/api/v1/login',
       data,
     });
   },

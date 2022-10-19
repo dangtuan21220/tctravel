@@ -3,6 +3,7 @@ import { Button, Form, Input, Modal } from 'antd';
 import { useState } from 'react';
 import Register from '../Register';
 import Styled from './styled';
+import { authService } from 'services/authService';
 
 interface LoginProps {
   isOpen: boolean;
@@ -12,9 +13,18 @@ interface LoginProps {
 
 function Login({ isOpen, onClose, onOpenLogin }: LoginProps) {
   const [isShowRegister, setIsShowRegister] = useState(false);
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
+  const onFinish = async (values: any) => {
+    const response = await authService.login(values);
+    if (response.data.errCode === 0) {
+      onClose();
+      authService.setAccessToken(response.data.token);
+      const fullName =
+        response.data.data.lastName + ' ' + response.data.data.firstName;
+      localStorage.setItem('email', response.data.data.email);
+      localStorage.setItem('full-name', fullName);
+    }
   };
+
   const handleShowRegister = () => {
     setIsShowRegister(true);
     onClose();

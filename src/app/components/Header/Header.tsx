@@ -1,12 +1,15 @@
+import { UserOutlined } from '@ant-design/icons';
 import { Button, Col, Menu, Row } from 'antd';
+import Login from 'app/pages/Auth/Login/index';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Styled from './styled';
-import Login from 'app/pages/Auth/Login/index';
 
 function Header() {
   const [isModalLogin, setIsModalLogin] = useState(false);
   const token = localStorage.getItem('access_token');
+  const fullName = localStorage.getItem('full-name');
+
   const [current, setCurrent] = useState(() => {
     return localStorage.getItem('current')
       ? `${localStorage.getItem('current')}`
@@ -22,15 +25,11 @@ function Header() {
     }
   };
 
-  const handleOpenModal = () => {
-    setIsModalLogin(true);
-  };
-
   return (
     <>
       <Styled.Header>
         <Row justify="center" className="header">
-          <Col className="logo" span={3}>
+          <Col className="logo" span={2}>
             <Link
               to={'/'}
               onClick={() => {
@@ -41,7 +40,7 @@ function Header() {
               TCTravel
             </Link>
           </Col>
-          <Col span={13}>
+          <Col span={14}>
             <Menu
               mode="horizontal"
               onClick={handleClick}
@@ -69,10 +68,17 @@ function Header() {
             </Menu.Item> */}
             </Menu>
           </Col>
-          <Col span={2} className="login logo">
-            <Button onClick={() => setIsModalLogin(true)} type="link">
-              ĐĂNG NHẬP
-            </Button>
+          <Col span={4} className="login logo">
+            {!token ? (
+              <Button onClick={() => setIsModalLogin(true)} type="link">
+                ĐĂNG NHẬP
+              </Button>
+            ) : (
+              <div className='user'>
+                <UserOutlined />
+                <h4>{fullName}</h4>
+              </div>
+            )}
           </Col>
         </Row>
       </Styled.Header>
