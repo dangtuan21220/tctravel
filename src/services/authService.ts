@@ -20,7 +20,7 @@ export const authService = {
   register(data) {
     return apiClient.request({
       method: 'POST',
-      url: '/aipaccountsvc/users/register',
+      url: '/api/v1/register',
       data,
     });
   },

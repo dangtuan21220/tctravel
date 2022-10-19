@@ -1,5 +1,5 @@
 import { LockOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Modal } from 'antd';
+import { Button, Form, Input, Modal, notification } from 'antd';
 import { useState } from 'react';
 import Register from '../Register';
 import Styled from './styled';
@@ -13,26 +13,34 @@ interface LoginProps {
 
 function Login({ isOpen, onClose, onOpenLogin }: LoginProps) {
   const [isShowRegister, setIsShowRegister] = useState(false);
+  const [form] = Form.useForm();
+  const handleCancel = () => {
+    onClose();
+    form.resetFields();
+  };
   const onFinish = async (values: any) => {
     const response = await authService.login(values);
     if (response.data.errCode === 0) {
-      onClose();
       authService.setAccessToken(response.data.token);
       const fullName =
         response.data.data.lastName + ' ' + response.data.data.firstName;
       localStorage.setItem('email', response.data.data.email);
       localStorage.setItem('full-name', fullName);
+      notification.success({
+        message: 'Đăng nhập thành công',
+      });
+      handleCancel();
     }
   };
 
   const handleShowRegister = () => {
     setIsShowRegister(true);
-    onClose();
+    handleCancel();
   };
 
   return (
     <>
-      <Modal visible={isOpen} footer={null} onCancel={onClose} centered>
+      <Modal visible={isOpen} footer={null} onCancel={handleCancel} centered>
         <Styled.Login>
           <Form
             name="basic"
@@ -40,6 +48,7 @@ function Login({ isOpen, onClose, onOpenLogin }: LoginProps) {
             initialValues={{ remember: true }}
             onFinish={onFinish}
             autoComplete="off"
+            form={form}
           >
             <div className="title">
               <div className="title-logo">
