@@ -72,17 +72,17 @@ function Header() {
                 <Link to={'/'}>TRANG CHỦ</Link>
               </Menu.Item>
               <Menu.Item key="recommend">
-                <Link to={'/'}>GỢI Ý</Link>
+                <Link to={'/recommend'}>GỢI Ý</Link>
               </Menu.Item>
               <Menu.Item key="experience">
-                <Link to={'/'}>KINH NGHIỆM</Link>
+                <Link to={'/experience'}>KINH NGHIỆM</Link>
               </Menu.Item>
-              <Menu.Item key="document">
-                <Link to={'/document'}>BỘ SƯU TẬP</Link>
+              <Menu.Item key="collection">
+                <Link to={'/collection'}>BỘ SƯU TẬP</Link>
               </Menu.Item>
             </Menu>
           </Col>
-          <Col span={4} className="login logo">
+          <Col span={3} className="login logo">
             {!accessToken ? (
               <Button onClick={() => setIsModalLogin(true)} type="link">
                 ĐĂNG NHẬP

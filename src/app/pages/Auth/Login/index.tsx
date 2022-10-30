@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Register from '../Register';
 import Styled from './styled';
 import { authService } from 'services/authService';
+import { useLocation } from 'react-router-dom';
 
 interface LoginProps {
   isOpen: boolean;
@@ -14,6 +15,8 @@ interface LoginProps {
 function Login({ isOpen, onClose, onOpenLogin }: LoginProps) {
   const [isShowRegister, setIsShowRegister] = useState(false);
   const [form] = Form.useForm();
+  let location = useLocation();
+  console.log(location);
   const handleCancel = () => {
     onClose();
     form.resetFields();
@@ -26,10 +29,14 @@ function Login({ isOpen, onClose, onOpenLogin }: LoginProps) {
         response.data.data.lastName + ' ' + response.data.data.firstName;
       localStorage.setItem('email', response.data.data.email);
       localStorage.setItem('full-name', fullName);
+      if (location.pathname === '/' || location.pathname === '/home') {
+        handleCancel();
+      } else {
+        window.location.reload();
+      }
       notification.success({
         message: 'Đăng nhập thành công',
       });
-      handleCancel();
     }
   };
 
