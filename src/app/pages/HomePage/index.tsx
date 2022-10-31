@@ -7,8 +7,14 @@ import Header from 'app/components/Header/Header';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import Styled from './styled';
+import { useNavigate } from 'react-router-dom';
 
 export function HomePage() {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate('/experience');
+    localStorage.setItem('current', 'experience');
+  };
   return (
     <>
       <Styled.Container>
@@ -16,7 +22,12 @@ export function HomePage() {
         <div className="image">
           <img src={IMAGEHANOI} alt="img" />
           <div className="btn-discover">
-            <Button type="primary" size="large" shape="round">
+            <Button
+              type="primary"
+              size="large"
+              shape="round"
+              onClick={handleClick}
+            >
               Khám phá ngay <ArrowRightOutlined />
             </Button>
           </div>
@@ -24,7 +35,12 @@ export function HomePage() {
         <div className="image">
           <img src={IMAGEVHL} alt="img" />
           <div className="btn-discover">
-            <Button type="primary" size="large" shape="round">
+            <Button
+              type="primary"
+              size="large"
+              shape="round"
+              onClick={handleClick}
+            >
               Khám phá ngay <ArrowRightOutlined />
             </Button>
           </div>
@@ -32,7 +48,12 @@ export function HomePage() {
         <div className="image">
           <img src={IMAGEHCM} alt="img" />
           <div className="btn-discover">
-            <Button type="primary" size="large" shape="round">
+            <Button
+              type="primary"
+              size="large"
+              shape="round"
+              onClick={handleClick}
+            >
               Khám phá ngay <ArrowRightOutlined />
             </Button>
           </div>
