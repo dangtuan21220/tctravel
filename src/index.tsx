@@ -9,6 +9,8 @@ import FontFaceObserver from 'fontfaceobserver';
 // Use consistent styling
 import 'sanitize.css/sanitize.css';
 import 'antd/dist/antd.min.css';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { App } from 'app';
 
 import { HelmetProvider } from 'react-helmet-async';

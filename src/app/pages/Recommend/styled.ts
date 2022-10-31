@@ -16,6 +16,10 @@ const Styled = {
         color: ${({ theme }) => theme.primary_700};
       }
     }
+    .map-recommend {
+      margin-top: 2rem;
+      margin-bottom: 3rem;
+    }
   `,
 };
 
