@@ -3,14 +3,17 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import 'antd/dist/antd.min.css';
 import { useThemeContext } from 'app/components/common/themeContext';
-import Header from 'app/components/Header/Header';
 import { useTranslation } from 'react-i18next';
 import { ThemeProvider } from 'styled-components';
 import { darkTheme, lightTheme } from 'theme/theme';
 import { GlobalStyle } from '../styles/global-styles';
 import Footer from './components/Footer/Footer';
 import { NotFoundPage } from './components/NotFoundPage/Loadable';
-import { HomePage } from './pages/HomePage/Loadable';
+import PrivateRoute from './components/common/privateRoute';
+import Recommend from './pages/Recommend';
+import Experience from './pages/Experience';
+import Collection from './pages/Collection';
+import { HomePage } from './pages/HomePage';
 
 export function App() {
   const { theme } = useThemeContext();
@@ -23,9 +26,33 @@ export function App() {
         <Helmet htmlAttributes={{ lang: i18n.language }}>
           <meta name="description" content="Synodus eKYC" />
         </Helmet>
-        <Header />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route
+            path="/recommend"
+            element={
+              <PrivateRoute>
+                <Recommend />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/experience"
+            element={
+              <PrivateRoute>
+                <Experience />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/collection"
+            element={
+              <PrivateRoute>
+                <Collection />
+              </PrivateRoute>
+            }
+          />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <Footer />

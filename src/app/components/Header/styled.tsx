@@ -12,14 +12,16 @@ const Styled = {
       top: 0;
       right: 0;
       z-index: 1000;
-      background-color: rgba(0, 0, 0, 0.1);
+      /* background-color: rgba(0, 0, 0, 0.1); */
+      background-color: white;
+      box-shadow: 0px 2px 20px 0px #0000001a;
       .logo {
         display: flex;
         align-self: center;
         /* padding-left: 25px; */
-        a {
+        /* a {
           color: ${({ theme }) => theme.neutral_white};
-        }
+        } */
       }
       .login {
         .ant-btn {
@@ -31,7 +33,7 @@ const Styled = {
           font-size: 1.6rem;
           line-height: 2.4rem;
           font-weight: 600;
-          color: ${({ theme }) => theme.neutral_white};
+          color: ${({ theme }) => theme.neutral_600};
           &:hover {
             color: ${({ theme }) => theme.secondary_500} !important;
           }
@@ -42,14 +44,14 @@ const Styled = {
           align-items: center;
 
           h4 {
-            color: white;
+            color: ${({ theme }) => theme.neutral_600};
             margin-bottom: 0;
             margin: 1rem;
           }
 
           .anticon svg {
             font-size: 3rem;
-            color: white;
+            color: ${({ theme }) => theme.neutral_600};
             margin-top: -10px;
           }
         }
@@ -69,7 +71,7 @@ const Styled = {
           a {
             font-size: 1.6rem;
             line-height: 2.4rem;
-            color: ${({ theme }) => theme.neutral_white};
+            color: ${({ theme }) => theme.neutral_600};
             width: 10rem;
             font-weight: 600;
           }
@@ -79,7 +81,7 @@ const Styled = {
         }
         .ant-menu-item-selected {
           a {
-            color: ${({ theme }) => theme.secondary_500} !important;
+            color: ${({ theme }) => theme.secondary_600} !important;
             font-weight: 600;
           }
           &:hover {
@@ -96,7 +98,7 @@ const Styled = {
           }
         }
         .ant-menu-item-active {
-          color: ${({ theme }) => theme.secondary_500} !important;
+          color: ${({ theme }) => theme.secondary_600} !important;
           border-bottom: 0;
           &:hover {
             border-bottom: 0;
@@ -106,7 +108,7 @@ const Styled = {
             border-bottom: 0;
           }
           a {
-            color: ${({ theme }) => theme.secondary_500};
+            color: ${({ theme }) => theme.secondary_600};
           }
         }
         .ant-btn {
@@ -122,7 +124,7 @@ const Styled = {
             }
           }
           &:hover {
-            background-color: ${({ theme }) => theme.secondary_500};
+            background-color: ${({ theme }) => theme.secondary_600};
             border: 0;
           }
         }

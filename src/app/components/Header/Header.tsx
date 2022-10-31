@@ -1,13 +1,14 @@
 import { UserOutlined } from '@ant-design/icons';
-import { Button, Col, Menu, Row } from 'antd';
+import { Button, Col, Menu, Row, Dropdown } from 'antd';
 import Login from 'app/pages/Auth/Login/index';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Styled from './styled';
 
 function Header() {
+  const [loading, setLoading] = useState(false);
   const [isModalLogin, setIsModalLogin] = useState(false);
-  const token = localStorage.getItem('access_token');
+  const accessToken = localStorage.getItem('access_token');
   const fullName = localStorage.getItem('full-name');
 
   const [current, setCurrent] = useState(() => {
@@ -15,6 +16,27 @@ function Header() {
       ? `${localStorage.getItem('current')}`
       : 'home';
   });
+
+  const logout = () => {
+    setLoading(true);
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('email');
+    localStorage.removeItem('full-name');
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  };
+
+  const userMenu = (
+    <Menu>
+      <Menu.Item key="1">Thông tin cá nhân</Menu.Item>
+      <Menu.Item key="2">Đổi mật khẩu</Menu.Item>
+      <Menu.Divider />
+      <Menu.Item key="3" onClick={logout}>
+        Đăng xuất
+      </Menu.Item>
+    </Menu>
+  );
 
   const handleClick = (e: any) => {
     if (e.key !== 'login') {
@@ -50,34 +72,28 @@ function Header() {
                 <Link to={'/'}>TRANG CHỦ</Link>
               </Menu.Item>
               <Menu.Item key="recommend">
-                <Link to={'/'}>GỢI Ý</Link>
+                <Link to={'/recommend'}>GỢI Ý</Link>
               </Menu.Item>
               <Menu.Item key="experience">
-                <Link to={'/'}>KINH NGHIỆM</Link>
+                <Link to={'/experience'}>KINH NGHIỆM</Link>
               </Menu.Item>
-              <Menu.Item key="document">
-                <Link to={'/document'}>BỘ SƯU TẬP</Link>
+              <Menu.Item key="collection">
+                <Link to={'/collection'}>BỘ SƯU TẬP</Link>
               </Menu.Item>
-              {/* <Menu.Item key={current} className="btn-login">
-                <a onClick={handleOpenModal}>ĐĂNG NHẬP</a>
-              </Menu.Item> */}
-              {/* <Menu.Item className="console" key="login">
-              <Button size="large">
-                <Link to={`${token ? '/dashboard' : '/login'}`}>Console</Link>
-              </Button>
-            </Menu.Item> */}
             </Menu>
           </Col>
-          <Col span={4} className="login logo">
-            {!token ? (
+          <Col span={3} className="login logo">
+            {!accessToken ? (
               <Button onClick={() => setIsModalLogin(true)} type="link">
                 ĐĂNG NHẬP
               </Button>
             ) : (
-              <div className='user'>
-                <UserOutlined />
-                <h4>{fullName}</h4>
-              </div>
+              <Dropdown overlay={userMenu} trigger={['click']}>
+                <a className="user" onClick={e => e.preventDefault()}>
+                  <UserOutlined />
+                  <h4>{fullName}</h4>
+                </a>
+              </Dropdown>
             )}
           </Col>
         </Row>

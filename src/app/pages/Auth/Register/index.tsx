@@ -1,6 +1,16 @@
 import { UserOutlined } from '@ant-design/icons';
-import { Button, Col, Form, Input, Modal, Radio, Row } from 'antd';
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  Modal,
+  Radio,
+  Row,
+  notification,
+} from 'antd';
 import Styled from './styled';
+import { authService } from 'services/authService';
 
 interface RegisterProps {
   isOpen: boolean;
@@ -9,13 +19,30 @@ interface RegisterProps {
 }
 
 function Register({ isOpen, onClose, onOpenLogin }: RegisterProps) {
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
+  const [form] = Form.useForm();
+
+  const handleCancel = () => {
+    onClose();
+    form.resetFields();
   };
 
   const handleOpenLogin = () => {
-    onClose();
+    handleCancel();
     onOpenLogin();
+  };
+
+  const onFinish = async (values: any) => {
+    const data = {
+      ...values,
+      gender: values.gender || 1,
+    };
+    const response = await authService.register(data);
+    if (response.data.errCode === 0) {
+      notification.success({
+        message: 'Đăng ký thành công',
+      });
+    }
+    handleOpenLogin();
   };
 
   return (
@@ -24,12 +51,13 @@ function Register({ isOpen, onClose, onOpenLogin }: RegisterProps) {
         centered
         visible={isOpen}
         footer={null}
-        onCancel={onClose}
+        onCancel={handleCancel}
         width={800}
       >
         <Styled.Register>
           <Form
             name="basic"
+            form={form}
             wrapperCol={{ span: 24 }}
             initialValues={{ remember: true }}
             onFinish={onFinish}

@@ -30,6 +30,46 @@ const Styled = {
         }
       }
     }
+
+    .header {
+      background-color: rgba(0, 0, 0, 0.1) !important;
+      box-shadow: none;
+      .logo {
+        a {
+          color: ${({ theme }) => theme.neutral_white} !important;
+        }
+      }
+      .login {
+        .ant-btn span {
+          color: white;
+        }
+        .user {
+          h4 {
+            color: white;
+          }
+          .anticon svg {
+            color: white;
+          }
+        }
+      }
+      .ant-menu-horizontal {
+        .ant-menu-item {
+          a {
+            color: white;
+          }
+        }
+        .ant-menu-item-selected {
+          a {
+            color: ${({ theme }) => theme.secondary_600} !important;
+          }
+        }
+        .ant-menu-item-active {
+          a {
+            color: ${({ theme }) => theme.secondary_600} !important;
+          }
+        }
+      }
+    }
   `,
 };
 export default Styled;
