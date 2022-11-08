@@ -20,6 +20,18 @@ const Styled = {
       margin-top: 2rem;
       margin-bottom: 3rem;
     }
+    .filter {
+      .filter-item {
+        margin-bottom: 1.5rem;
+      }
+      .lable {
+        padding: 8px 0;
+      }
+    }
+    .result {
+      margin-top: 2rem;
+      margin-bottom: 8rem;
+    }
   `,
 };
 
