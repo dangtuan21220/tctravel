@@ -27,6 +27,8 @@ export default function GeocoderControl(props: GeocoderControlProps) {
         ...props,
         marker: false,
         accessToken: props.mapboxAccessToken,
+        placeholder: 'Địa điểm bắt đầu',
+        width: 500,
       });
       ctrl.on('loading', props.onLoading);
       ctrl.on('results', props.onResults);

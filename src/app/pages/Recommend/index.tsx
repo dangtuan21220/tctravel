@@ -22,6 +22,7 @@ import Map, {
   ScaleControl,
 } from 'react-map-gl';
 import GeocoderControl from './geocoder-control';
+import Rating from './rating';
 
 const MAPBOX_TOKEN =
   'pk.eyJ1IjoidHVhbmR2MjEiLCJhIjoiY2w5d3VyY2JvMDExYjN2cGwya3oydXh3ZCJ9.i1W8dB9-9cIr1JjD5ocADg';
@@ -83,6 +84,7 @@ function Recommend() {
   const [weather, setWeather] = useState('sunny');
   const [companion, setCompanion] = useState('family');
   const [number, setNumber] = useState(1);
+  const [isModalRating, setIsModalRating] = useState(false);
   const onGeolocate = positionOptions => {
     console.log(positionOptions);
   };
@@ -93,13 +95,8 @@ function Recommend() {
   const dataSource = [
     {
       key: '1',
-      name: 'Mike',
-      address: '10 Downing Street',
-    },
-    {
-      key: '2',
-      name: 'John',
-      address: '10 Downing Street',
+      name: 'Hồ Hoàn Kiếm',
+      address: 'Hàng Trống, Hoàn Kiếm, Hà Nội, Việt Nam',
     },
   ];
 
@@ -107,25 +104,34 @@ function Recommend() {
     {
       title: 'STT',
       key: 'stt',
+      width: 80,
       render: (_, record, index) => index + 1,
     },
     {
-      title: 'Name',
+      title: 'Tên địa điểm',
       dataIndex: 'name',
       key: 'name',
+      width: '25%',
     },
     {
-      title: 'Address',
+      title: 'Địa chỉ',
       dataIndex: 'address',
       key: 'address',
     },
     {
       title: '',
       key: 'action',
+      width: '20%',
       render: (_, record) => (
         <Space size="middle">
           <Button type="primary">Chỉ đường</Button>
-          <Button>Đánh giá</Button>
+          <Button
+            onClick={() => {
+              setIsModalRating(true);
+            }}
+          >
+            Đánh giá
+          </Button>
         </Space>
       ),
     },
@@ -264,6 +270,10 @@ function Recommend() {
           </div>
         </Col>
       </Row>
+      <Rating
+        isOpenModal={isModalRating}
+        onClose={() => setIsModalRating(false)}
+      />
     </Styled.Container>
   );
 }

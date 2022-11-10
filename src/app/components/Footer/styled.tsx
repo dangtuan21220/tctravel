@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const Styled = {
   Footer: styled.footer`
+    width: 100vw;
     .footer {
       height: 28rem;
       min-height: 320px;
