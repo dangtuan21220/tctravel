@@ -29,6 +29,7 @@ function Login({ isOpen, onClose, onOpenLogin }: LoginProps) {
         response.data.data.lastName + ' ' + response.data.data.firstName;
       localStorage.setItem('email', response.data.data.email);
       localStorage.setItem('full-name', fullName);
+      localStorage.setItem('user-id', response.data.data.id);
       if (location.pathname === '/' || location.pathname === '/home') {
         handleCancel();
       } else {
