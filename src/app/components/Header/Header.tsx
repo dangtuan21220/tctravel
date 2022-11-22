@@ -22,6 +22,7 @@ function Header() {
     localStorage.removeItem('access_token');
     localStorage.removeItem('email');
     localStorage.removeItem('full-name');
+    localStorage.removeItem('user-id');
     setTimeout(() => {
       setLoading(false);
     }, 500);
@@ -51,7 +52,7 @@ function Header() {
     <>
       <Styled.Header>
         <Row justify="center" className="header">
-          <Col className="logo" span={2}>
+          <Col className="logo logo-text" span={2}>
             <Link
               to={'/'}
               onClick={() => {

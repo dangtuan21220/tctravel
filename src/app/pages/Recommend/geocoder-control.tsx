@@ -10,6 +10,7 @@ type GeocoderControlProps = Omit<
   marker?: boolean | Omit<MarkerProps, 'longitude' | 'latitude'>;
 
   position: ControlPosition;
+  onSearch: (e: any) => void;
 
   onLoading?: (e: object) => void;
   onResults?: (e: object) => void;
@@ -26,6 +27,7 @@ export default function GeocoderControl(props: GeocoderControlProps) {
       const ctrl = new MapboxGeocoder({
         ...props,
         marker: false,
+        zoom: 10,
         accessToken: props.mapboxAccessToken,
         placeholder: 'Địa điểm bắt đầu',
         width: 500,
@@ -34,7 +36,7 @@ export default function GeocoderControl(props: GeocoderControlProps) {
       ctrl.on('results', props.onResults);
       ctrl.on('result', evt => {
         const { result } = evt;
-        console.log(result?.center);
+        props.onSearch(result?.center);
         setMarker(
           <Marker longitude={result?.center[0]} latitude={result?.center[1]} />,
         );

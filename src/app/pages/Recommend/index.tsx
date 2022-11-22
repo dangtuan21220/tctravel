@@ -26,9 +26,10 @@ import Rating from './rating';
 import { recommendService } from 'services/recommendService';
 import { render } from '@testing-library/react';
 import { AnyAaaaRecord } from 'dns';
+import { distance } from 'utils/distance';
 
 const MAPBOX_TOKEN =
-  'pk.eyJ1IjoidHVhbmR2MjEiLCJhIjoiY2w5d3VyY2JvMDExYjN2cGwya3oydXh3ZCJ9.i1W8dB9-9cIr1JjD5ocADg';
+  'pk.eyJ1IjoidHVhbmR2MjEiLCJhIjoiY2xhcm92eno4MDAzZTNvcWwyaTI5NzMzeCJ9.MsJgDaYFGjmWnBWlsCg1mA';
 
 const optionTime = [
   {
@@ -88,8 +89,8 @@ function Recommend() {
   const [companion, setCompanion] = useState('family');
   const [number, setNumber] = useState<number>(1);
   const [isModalRating, setIsModalRating] = useState(false);
-  const [startLat, setStartLat] = useState();
-  const [startLng, setStartLng] = useState();
+  const [startLat, setStartLat] = useState<any>();
+  const [startLng, setStartLng] = useState<any>();
   const [dataSource, setDataSource] = useState<any>([]);
   const onGeolocate = positionOptions => {
     console.log(positionOptions);
@@ -131,22 +132,25 @@ function Recommend() {
       title: 'Đánh giá',
       dataIndex: 'avgRating',
       key: 'avgRating',
+      width: '10%',
     },
     {
       title: 'Đánh giá của tôi',
       dataIndex: 'myRating',
       key: 'myRating',
+      width: '13%',
       render: (_, record) =>
         record.myRating === 0 ? 'Chưa đánh giá' : record.myRating,
     },
     {
       title: '',
       key: 'action',
-      width: '20%',
+      width: '12%',
       render: (_, record) => (
         <Space size="middle">
-          <Button type="primary">Chỉ đường</Button>
+          {/* <Button type="primary">Chỉ đường</Button> */}
           <Button
+            type="primary"
             onClick={() => {
               setIsModalRating(true);
             }}
@@ -169,6 +173,13 @@ function Recommend() {
     const response = await recommendService.getAddress(params);
     setDataSource(response.data.data);
   };
+
+  const handleResult = (poi: any) => {
+    // console.log(poi);
+    setStartLat(poi[1]);
+    setStartLng(poi[0]);
+  };
+  console.log(distance(startLat, startLng, 0, 0));
 
   return (
     <Styled.Container>
@@ -199,6 +210,7 @@ function Recommend() {
               >
                 <GeolocateControl
                   position="top-left"
+                  fitBoundsOptions={{ maxZoom: 12 }}
                   onGeolocate={positionOptions => onGeolocate(positionOptions)}
                 />
                 <FullscreenControl position="top-left" />
@@ -222,7 +234,19 @@ function Recommend() {
                         longitude={item?.lng || 0}
                         latitude={item?.lat || 0}
                       >
-                        {item?.name || ''}
+                        <p style={{ marginBottom: '0.4rem' }}>
+                          {item?.name || ''}
+                        </p>
+                        <span>
+                          Khoảng cách:{' '}
+                          {distance(
+                            startLat,
+                            startLng,
+                            item?.lat,
+                            item?.lng,
+                          ).toFixed(1)}
+                          km
+                        </span>
                       </Popup>
                     </>
                   ))}
@@ -246,6 +270,7 @@ function Recommend() {
                 <GeocoderControl
                   mapboxAccessToken={MAPBOX_TOKEN}
                   position="top-right"
+                  onSearch={(poi: any) => handleResult(poi)}
                 />
               </Map>
             </Col>
@@ -309,7 +334,13 @@ function Recommend() {
               </Row>
               <Row className="filter-item">
                 <Col className="gutter-row" span={7}>
-                  <Button size="large" type="primary" block onClick={onSubmit}>
+                  <Button
+                    size="large"
+                    type="primary"
+                    block
+                    onClick={onSubmit}
+                    disabled={startLat === undefined && startLng === undefined}
+                  >
                     Tìm kiếm
                   </Button>
                 </Col>

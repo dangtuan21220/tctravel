@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from 'app/components/Header/Header';
 import Styled from './styled';
-import { Breadcrumb, Card, Col, Row } from 'antd';
+import { Breadcrumb, Button, Card, Col, Row } from 'antd';
 import { ClockCircleOutlined, HomeOutlined } from '@ant-design/icons';
 const { Meta } = Card;
 
@@ -17,6 +17,9 @@ function Collection() {
             </Breadcrumb.Item>
             <Breadcrumb.Item>Bộ sưu tập</Breadcrumb.Item>
           </Breadcrumb>
+          <Button type="primary" size="large" style={{ marginTop: '20px' }}>
+            Thêm mới
+          </Button>
           <div className="title">
             <h4>Hà Nội</h4>
           </div>

@@ -23,6 +23,12 @@ const Styled = {
           color: ${({ theme }) => theme.neutral_white};
         } */
       }
+      .logo-text {
+        font-size: 23px;
+        font-family: cursive;
+        font-weight: bold;
+        /* font-family: fantasy; */
+      }
       .login {
         .ant-btn {
           background: transparent;
