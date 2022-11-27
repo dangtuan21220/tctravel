@@ -1,6 +1,16 @@
 import { StarFilled } from '@ant-design/icons';
-import { InputNumber, Modal, Row, Col, Select } from 'antd';
+import {
+  InputNumber,
+  Modal,
+  Row,
+  Col,
+  Select,
+  Form,
+  Button,
+  notification,
+} from 'antd';
 import { useState } from 'react';
+import { recommendService } from 'services/recommendService';
 
 const optionTime = [
   {
@@ -54,80 +64,113 @@ const optionCompanion = [
   },
 ];
 
-function Rating({ isOpenModal, onClose }) {
-  const [point, setPoint] = useState<string>('5');
-  const [time, setTime] = useState('weekday');
-  const [weather, setWeather] = useState('sunny');
-  const [companion, setCompanion] = useState('family');
-  const onChange = (value: any) => {
-    console.log('changed', value);
-    // setPoint(value);
+function Rating({
+  isOpenModal,
+  onClose,
+  timeProps,
+  weatherProps,
+  companionProps,
+  myRating,
+  addrId,
+}) {
+  const [form] = Form.useForm();
+
+  const onCloseModal = () => {
+    onClose();
+    form.resetFields();
+  };
+  const handleSubmit = async () => {
+    if (parseInt(form.getFieldValue('point')) === 0) {
+      notification.error({
+        message: 'Thất bại',
+        description: 'Điểm đánh giá phải lớn hơn 0',
+      });
+    } else {
+      const dataBody = {
+        weather: form.getFieldValue('weather'),
+        time: form.getFieldValue('time'),
+        partner: form.getFieldValue('partner'),
+        point: parseInt(form.getFieldValue('point')),
+        addrId,
+        userId: parseInt(localStorage.getItem('user-id') || ''),
+      };
+      const response = await recommendService.addEditRating(dataBody);
+      if (response.data.code === 0) {
+        onCloseModal();
+        notification.success({
+          message: 'Đánh giá thành công',
+        });
+      } else {
+        notification.error({
+          message: 'Đánh giá thất bại',
+        });
+      }
+    }
   };
 
   return (
-    <Modal title="Đánh giá" visible={isOpenModal} onCancel={onClose}>
-      <Row gutter={8} className="filter-item" style={{ marginBottom: '10px' }}>
-        <Col className="gutter-row" span={9}>
-          <div className="lable">Điểm đánh giá:</div>
-        </Col>
-        <Col className="gutter-row" span={15}>
-          <InputNumber<string>
-            defaultValue={point}
-            min="1"
-            max="5"
-            step="1"
-            onChange={onChange}
-            stringMode
-          />
-          <StarFilled
-            style={{
-              fontSize: '25px',
-              color: '#f8e009',
-              marginLeft: '0.5rem',
-            }}
-          />
-        </Col>
-      </Row>
-
-      <Row gutter={8} className="filter-item" style={{ marginBottom: '10px' }}>
-        <Col className="gutter-row" span={9}>
-          <div className="lable">Thời gian:</div>
-        </Col>
-        <Col className="gutter-row" span={15}>
+    <Modal
+      title="Đánh giá"
+      onCancel={onCloseModal}
+      visible={isOpenModal}
+      footer={null}
+    >
+      <Form
+        name="basic"
+        form={form}
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 16 }}
+        initialValues={{ remember: true }}
+        onFinish={handleSubmit}
+        autoComplete="off"
+        labelAlign={'left'}
+      >
+        <Form.Item label="Điểm đánh giá:" name="point" initialValue={myRating}>
+          <InputNumber<string> min="0" max="5" step="1" stringMode />
+        </Form.Item>
+        <Form.Item label="Thời gian:" name="time" initialValue={timeProps}>
+          <Select size="large" style={{ width: '100%' }} options={optionTime} />
+        </Form.Item>
+        <Form.Item
+          label="Thời tiết:"
+          name="weather"
+          initialValue={weatherProps}
+        >
           <Select
-            defaultValue={time}
-            size="large"
-            style={{ width: '100%' }}
-            options={optionTime}
-          />
-        </Col>
-      </Row>
-      <Row gutter={8} className="filter-item" style={{ marginBottom: '10px' }}>
-        <Col className="gutter-row" span={9}>
-          <div className="lable">Thời tiết:</div>
-        </Col>
-        <Col className="gutter-row" span={15}>
-          <Select
-            defaultValue={weather}
             size="large"
             style={{ width: '100%' }}
             options={optionWeather}
           />
-        </Col>
-      </Row>
-      <Row gutter={8} className="filter-item" style={{ marginBottom: '10px' }}>
-        <Col className="gutter-row" span={9}>
-          <div className="lable">Người đồng hành:</div>
-        </Col>
-        <Col className="gutter-row" span={15}>
+        </Form.Item>
+        <Form.Item
+          label="Người đồng hành:"
+          name="partner"
+          initialValue={companionProps}
+        >
           <Select
-            defaultValue={companion}
             size="large"
             style={{ width: '100%' }}
             options={optionCompanion}
           />
-        </Col>
-      </Row>
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ offset: 14, span: 10 }}>
+          <div style={{ display: 'flex' }}>
+            <Button
+              htmlType="submit"
+              size="large"
+              style={{ marginRight: '10px' }}
+              block
+              onClick={onCloseModal}
+            >
+              Hủy
+            </Button>
+            <Button type="primary" block htmlType="submit" size="large">
+              Lưu
+            </Button>
+          </div>
+        </Form.Item>
+      </Form>
     </Modal>
   );
 }

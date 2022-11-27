@@ -23,6 +23,7 @@ function Header() {
     localStorage.removeItem('email');
     localStorage.removeItem('full-name');
     localStorage.removeItem('user-id');
+    localStorage.removeItem('current');
     setTimeout(() => {
       setLoading(false);
     }, 500);

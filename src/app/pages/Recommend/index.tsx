@@ -88,6 +88,8 @@ function Recommend() {
   const [weather, setWeather] = useState('sunny');
   const [companion, setCompanion] = useState('family');
   const [number, setNumber] = useState<number>(1);
+  const [myRating, setMyRating] = useState(0);
+  const [addrId, setAddrId] = useState();
   const [isModalRating, setIsModalRating] = useState(false);
   const [startLat, setStartLat] = useState<any>();
   const [startLng, setStartLng] = useState<any>();
@@ -153,6 +155,8 @@ function Recommend() {
             type="primary"
             onClick={() => {
               setIsModalRating(true);
+              setMyRating(record?.myRating);
+              setAddrId(record?.addr_id);
             }}
           >
             Đánh giá
@@ -362,6 +366,11 @@ function Recommend() {
       <Rating
         isOpenModal={isModalRating}
         onClose={() => setIsModalRating(false)}
+        timeProps={time}
+        weatherProps={weather}
+        companionProps={companion}
+        myRating={myRating}
+        addrId={addrId}
       />
     </Styled.Container>
   );

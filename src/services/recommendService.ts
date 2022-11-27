@@ -10,4 +10,11 @@ export const recommendService = {
       params: params,
     });
   },
+  addEditRating(data) {
+    return apiClient.request({
+      method: 'POST',
+      url: '/api/v1/rating',
+      data,
+    });
+  },
 };
